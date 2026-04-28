@@ -1,0 +1,41 @@
+#include <xc.h>
+#include "external_eeprom.h"
+#include "i2c.h"
+
+void write_external_eeprom(unsigned char address, unsigned char data)
+{
+    i2c_start();
+    i2c_write(SLAVE_WRITE_E);
+    i2c_write(address);
+    i2c_write(data);
+    i2c_stop();
+    for (unsigned int wait = 3000;wait--;);
+}
+
+unsigned char read_external_eeprom(unsigned char address)
+{
+    unsigned char data;
+
+    i2c_start();
+    i2c_write(SLAVE_WRITE_E);
+    i2c_write(address);
+    i2c_rep_start();
+    i2c_write(SLAVE_READ_E);
+    data = i2c_read(0);
+    i2c_stop();
+
+    return data;
+}
+
+void write_external_eeprom_string(unsigned char addr, char *str)
+{
+    while(*str != '\0')
+    {
+      write_external_eeprom(addr, *str);
+      addr++;
+      str++;
+    }
+    
+}
+
+
