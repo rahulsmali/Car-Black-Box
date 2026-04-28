@@ -138,8 +138,7 @@ Each event includes:
 - Mobile app interface
 - Cloud data storage
 
----
-![Simulation Output](images/simulation.png)
+
 
 ## Project Status
 Completed
